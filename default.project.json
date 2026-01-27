@@ -1,0 +1,12 @@
+{
+  "name": "PIDController",
+  "tree": {
+    "$className": "DataModel",
+
+    "ReplicatedStorage": {
+      "PIDController": {
+        "$path": "src"
+      }
+    }
+  }
+}
