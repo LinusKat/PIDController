@@ -75,6 +75,8 @@ Tuner:Destroy()
 ## ImPlot
 Using my Iris addon [ImPlot](https://github.com/LinusKat/ImPlot) we can plot the PID data onto a Iris Widget.
 
+<td><img src="image.png" alt="Example 4" width="500"/></td>
+
 Memory Helper Module
 ```lua
 --!strict
