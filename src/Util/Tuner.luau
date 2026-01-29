@@ -1,13 +1,13 @@
 --!strict
-local PIDController = require("../../PIDController")
-local Vector2 = require("../PIDWrappers/Vector2")
-local Vector3 = require("../PIDWrappers/Vector3")
+local PIDController = require(script.Parent.Parent)
+local Vector2 = require(script.Parent.Parent.PIDWrappers.Vector2)
+local Vector3 = require(script.Parent.Parent.PIDWrappers.Vector3)
 
 local Tuner = {}
 Tuner.__index = Tuner
 
 function Tuner.new(PID: ExpectedType, name: string?, parent: Instance?): Tuner
-	local self = setmetatable({}, Tuner):: self
+	local self = setmetatable({}:: self, Tuner)
 	
 	self.Folder = Instance.new("Folder")
 	self.Folder.Parent = parent
@@ -32,21 +32,21 @@ function Tuner._bind_pid_controller(self: self, PIDController: PIDController)
 	
 	folder.AttributeChanged:Connect(function()
 		PIDController:SetGains(
-			folder:GetAttribute("Kp"),
-			folder:GetAttribute("Ki"),
-			folder:GetAttribute("Kd")
+			folder:GetAttribute("Kp"):: number,
+			folder:GetAttribute("Ki"):: number,
+			folder:GetAttribute("Kd"):: number
 		)
 		
 		PIDController:SetBounds(
-			folder:GetAttribute("Min"),
-			folder:GetAttribute("Max")
+			folder:GetAttribute("Min"):: number,
+			folder:GetAttribute("Max"):: number
 		)
 	end)
 end
 
 function Tuner._initialize(self: self, PID: ExpectedType | any)
 	if not PID._compound then
-		self:_bind_pid_controller(PID)
+		self:_bind_pid_controller(PID:: PIDController)
 	elseif PID._compound then
 		self:_initialize(PID._compound)
 	elseif typeof(PID) == "table" then
